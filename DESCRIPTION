@@ -17,6 +17,6 @@ Imports:
 Suggests: 
     knitr,
     rmarkdown
-VignetteBuilder: knitrlibra
+VignetteBuilder: knitr
 URL: https://github.com/Raiservi/minkar
 BugReports: https://github.com/Raiservi/minkar/issues
