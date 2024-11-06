@@ -1,8 +1,8 @@
 Package: minkar
 Type: Package
-Title: What the Package Does (Title Case)
+Title: EXTREURE DADES DE MINKA A TRAVES DE L API
 Version: 0.1.0
-Author: Who wrote it
+Author: Ramon Servitje
 Maintainer: The package maintainer <yourself@somewhere.net>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
@@ -17,6 +17,6 @@ Imports:
 Suggests: 
     knitr,
     rmarkdown
-VignetteBuilder: knitr
+VignetteBuilder: knitrlibra
 URL: https://github.com/Raiservi/minkar
 BugReports: https://github.com/Raiservi/minkar/issues
