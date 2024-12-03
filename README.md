@@ -156,28 +156,13 @@ diplodus_forum[1,1:6]
     #>   longitude
     #> 1  2.227122
 
-``` r
-#The representation using leaflet
+\#The representation using leaflet
 
-leaflet() %>%
-          setView(lng = 41.408492 , lat = 2.226725 , zoom = 15)  %>%
-addRectangles(lng1 = 41.407281, lat1 = 2.224977,
-                lng2 = 41.409892, lat2 = 2.228652)# %>%
-```
-
-<div class="figure" style="text-align: center">
-
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-4ff1af9cea9bf15667d3" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-4ff1af9cea9bf15667d3">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"setView":[[2.226725,41.408492],15,[]],"calls":[{"method":"addRectangles","args":[2.224977,41.407281,2.228652,41.409892,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[2.224977,2.228652],"lng":[41.407281,41.409892]}},"evals":[],"jsHooks":[]}</script>
-<p class="caption">
-Map of Salpa salpa observations
-</p>
-
-</div>
-
-``` r
-                 #addMarkers(lng = as.double(diplodus_forum$longitude), lat = as.double(diplodus_forum$latitude) ,group = "Markers")
-```
+\# leaflet() %\>% \# addTiles() %\>% \# setView(lng = 41.408492 , lat =
+2.226725 , zoom = 15) \# %\>% \#addRectangles(lng1 = 41.407281, lat1 =
+2.224977, \#lng2 = 41.409892, lat2 = 2.228652) \#%\>% \#addMarkers(lng =
+as.double(diplodus_forum$longitude), lat = as.double(diplodus_forum$latitude)
+,group = “Markers”)
 
 ### Other functions
 
@@ -192,7 +177,7 @@ urbamar <- get_minka_obs_project("urbamarbio", type = "info", raw = FALSE)
 urbamar$project_observations_count
 ```
 
-    #> [1] 55925
+    #> [1] 55929
 
 ``` r
 ## Now get all the observations for that project
