@@ -1,11 +1,19 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# rminka
+# rminka <a href="https://ggplot2.tidyverse.org"><img src="man/figures/minka1.png" align="right" height="138" alt="ggplot2 website" /></a>
 
 ## About
 
-rminka is a wrapper for Minka APIs for accessing the observations.
+`rminka` is a wrapper for Minka APIs for accessing the observations.
+
+## Installation
+
+The easiest way to get `rminka` is to install from github repository:
+
+``` r
+# devtools::install_github("development_biomarine/rminka")
+```
 
 ## Quickstart guide
 
@@ -242,21 +250,28 @@ their observations by user ID. A word of warning though, this can be
 quite large (easily into the 1000’s).
 
 ``` r
-user_exempl <- sard_banc$user_login[1]
-user_exempl
-```
-
-    #> [1] "xatrac"
-
-``` r
-user_obs <- get_minka_obs_user(user_exempl, maxresults = 10)
+user_obs <- get_minka_obs_user('ramonservitje')
 
 (user_obs)[1:5,1:3]
 ```
 
-    #>           scientific_name                  datetime description
-    #> 1    Spurilla neapolitana 2023-05-25 10:59:00 +0200          NA
-    #> 2      Posidonia oceanica 2023-05-18 10:05:00 +0200          NA
-    #> 3         Diplodus sargus 2022-09-21 10:47:00 +0200          NA
-    #> 4 Cotylorhiza tuberculata 2022-09-21 10:47:00 +0200          NA
-    #> 5         Oblada melanura 2022-09-21 10:47:00 +0200          NA
+    #>        scientific_name                  datetime description
+    #> 1  Porphyrio porphyrio 2024-11-10 12:03:00 +0100            
+    #> 2   Podiceps cristatus 2024-11-10 13:21:00 +0100            
+    #> 3   Circus aeruginosus 2024-11-10 13:32:00 +0100            
+    #> 4 Podiceps nigricollis 2024-11-10 13:48:00 +0100            
+    #> 5    Pelophylax perezi 2024-11-09 12:10:00 +0100
+
+``` r
+#it is possible to view the images with the links in Minka
+
+#url <- user_obs$image_url[412]
+
+# Read the image
+#image <- image_read(url)
+
+
+
+# Show the image
+#print(image, info = 'Observation of user rramonservitje')
+```

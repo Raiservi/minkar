@@ -19,12 +19,24 @@ library(minkar)
 library(jsonlite)
 library(httr)
 library(leaflet)
+library(magick)
 ```
-# rminka
+
+# rminka <a href="https://ggplot2.tidyverse.org"><img src="man/figures/minka1.png" align="right" height="138" alt="ggplot2 website" /></a>
+
 
 ## About
 
-rminka is a wrapper for Minka APIs for accessing the observations.
+`rminka` is a wrapper for Minka APIs for accessing the observations.
+
+
+## Installation
+
+The easiest way to get `rminka` is to install from github repository:
+
+```{r introduction, include = TRUE , echo=TRUE}
+# devtools::install_github("development_biomarine/rminka")
+```
 
 ## Quickstart guide
 
@@ -95,6 +107,7 @@ count_sard
 #the observarions are
 
 sard_banc[1:count_sard,1:2]
+
 ```
 
 
@@ -172,9 +185,20 @@ If you just want all the observations by a user you can download all their obser
 
 
 ```{r search8, include = TRUE , echo=TRUE}
-user_exempl <- sard_banc$user_login[1]
-user_exempl
-user_obs <- get_minka_obs_user(user_exempl, maxresults = 10)
+
+user_obs <- get_minka_obs_user('ramonservitje')
 
 (user_obs)[1:5,1:3]
+
+#it is possible to view the images with the links in Minka
+
+#url <- user_obs$image_url[412]
+
+# Read the image
+#image <- image_read(url)
+
+
+
+# Show the image
+#print(image, info = 'Observation of user rramonservitje')
 ```

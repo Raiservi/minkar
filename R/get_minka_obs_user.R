@@ -13,7 +13,7 @@
 #' @export
 
 
-get_minka_obs_user <- function(username, maxresults = 100){
+get_minka_obs_user <- function(username, maxresults = 1000){
 
 
 
