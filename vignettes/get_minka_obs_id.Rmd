@@ -1,0 +1,19 @@
+---
+title: "get_minka_obs_id"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{get_minka_obs_id}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(rminka)
+```

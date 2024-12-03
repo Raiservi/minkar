@@ -1,0 +1,7 @@
+pandoc: 3.1.1
+pkgdown: 2.1.1
+pkgdown_sha: ~
+articles:
+  get_minka_obs_id: get_minka_obs_id.html
+  minkar: minkar.html
+last_built: 2024-12-03T06:49Z
