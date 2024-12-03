@@ -115,9 +115,10 @@ diplodus_forum[1,1:6]
 #The representation using leaflet
 
 leaflet() %>%
+          addTiles() %>%
           setView(lng = 41.408492 , lat = 2.226725 , zoom = 15)  %>%
-addRectangles(lng1 = 41.407281, lat1 = 2.224977,
-                lng2 = 41.409892, lat2 = 2.228652)# %>%
+          addRectangles(lng1 = 41.407281, lat1 = 2.224977,
+          lng2 = 41.409892, lat2 = 2.228652)# %>%
                  #addMarkers(lng = as.double(diplodus_forum$longitude), lat = as.double(diplodus_forum$latitude) ,group = "Markers")
 ```       
 
