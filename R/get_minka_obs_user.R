@@ -1,26 +1,26 @@
-#' Descarrega les observacion per un usuari
+#' Download observations for a user
 #'
-#' @description Get all the observations of a specific iNaturalist user.
-#' @param username username of the iNaturalist user to fetch records
+#' @description Get all the observations of a specific Minka user.
+#' @param username username of the Minka user to fetch records
 #' @param maxresults the maximum number of results to return
 #' @return a list with full details on a given record
 #' @examples \dontrun{
-#'   m_obs <- get_inat_obs(query="Monarch Butterfly")
-#'   get_inat_obs_user(as.character(m_obs$user_login[1]))
+#'   m_obs <- get_minka_obs(query="Seabream")
+#'   get_minka_obs_user(as.character(m_obs$user_login[1]))
 #' }
 #' @importFrom utils read.csv
-#' @import httr jsonlite plyr
+#' @import httr jsonlite dplyr
 #' @export
 
 
-get_minka_obs_user<- function(username, maxresults = 100){
+get_minka_obs_user <- function(username, maxresults = 100){
 
 
 
   base_url <- "https://minka-sdg.org/"
 
-  # Comprobar que es pot accedir a Minka
-            if (httr::http_error(base_url)) { # TRUE: 400 or above
+
+            if (httr::http_error(base_url)) {
               message("Minka API is unavailable.")
               return(invisible(NULL))
             }
@@ -29,13 +29,10 @@ get_minka_obs_user<- function(username, maxresults = 100){
   ping_path <- paste0(username, ".json")
 
   ping_query <- "&per_page=1&page=1"
-  ### Make the first ping to the server to get the number of results
-  ### easier to pull down if you make the query in json, but easier to arrange results
-  ### that come down in CSV format
 
   ping <- httr::GET(base_url, path = paste0("observations/", ping_path), query = ping_query)
 
-  total_res <- as.numeric(ping$headers$`x-total-entries`) #Nombre total d observacions
+  total_res <- as.numeric(ping$headers$`x-total-entries`)
 
                       if(total_res == 0){
                         stop("Your search returned zero results. Perhaps your user does not exist.")

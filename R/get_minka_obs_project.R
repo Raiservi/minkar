@@ -1,15 +1,15 @@
-#' Descarrega informació o observacions desde un projecte
+#' Download observations or info from a project
 #'
 #' Retrieve observations from a particular Minka project. This function can be used to get either observations or information from a project by project name or ID.
 #'
 #' @param grpid Name of the group as an Minka slug or group ID.
 #' @param type Character, either "observations" or "info". "observations" returns all observations, and "info" returns project details similar to what you can find on a project's page.
 #' @param raw Logical. If TRUE and searching for project info, returns the raw output of parsed JSON for that project. Otherwise just some basic information is returned as a list.
-#' @details A Minka slug is usually the project name as a single string with words separated by hyphens. For instance, the project "World Oceans Week 2022" has a slug of "world-oceans-week-2022", which you can find by searching projects on Minka and looking at the \href{https://minka-sdg.org/}{project's page's URL}.
+#' @details A Minka slug is usually the project name as a single string with words separated by hyphens. For instance, the project "biomarato-2022-girona" has a slug of "world-oceans-week-2022", which you can find by searching projects on Minka and looking at the \href{https://minka-sdg.org/}{project's page's URL}.
 #'
 #' @examples \dontrun{
-#'  get_minka_obs_project(354, type = "observations")
-#'  get_minka_obs_project("biomarato-2022-girona", type="info",raw=FALSE)
+#'  get_minka_obs_project(8, type = "observations")
+#'  get_minka_obs_project("urbamarbio", type="info",raw=FALSE)
 #'}
 #' @import httr jsonlite dplyr
 #' @export
@@ -23,12 +23,10 @@ get_minka_obs_project <- function(grpid = NULL, type = c("info","observations") 
 
   # check access to  Minka
 
-            if (httr::http_error(base_url))  # TRUE: 400 or above
+            if (httr::http_error(base_url))
              { message("Minka API is unavailable.")
               return(invisible(NULL))}
 
-
-  ###Obtenir el JSON de l API ( es la variable xx)
 
   argstring <- switch(match.arg(type),
                      observations = "obs",
@@ -38,7 +36,6 @@ get_minka_obs_project <- function(grpid = NULL, type = c("info","observations") 
   xx <- fromJSON(content(httr::GET(url), as = "text"))
   recs <- xx$project_observations_count
 
-### Gestio de errors per projectes sense observacions
 
             dat <- NULL
             if(is.null(recs)){
@@ -46,7 +43,6 @@ get_minka_obs_project <- function(grpid = NULL, type = c("info","observations") 
             message(paste(recs,"records\n"))
             }
 
-###Si nomes volem la info del projecte
 
   if(argstring == "info"){
             output <- list()
@@ -64,10 +60,10 @@ get_minka_obs_project <- function(grpid = NULL, type = c("info","observations") 
                         }
                         return(xx)
 
- ### Si volem obtindre les observacions del projecte
+
 
   } else if (argstring == "obs") {
-                #Deffini la variable observecions per pagina
+
 
                 per_page <- 200
 
@@ -102,8 +98,7 @@ get_minka_obs_project <- function(grpid = NULL, type = c("info","observations") 
         fromJSON(content(httr::GET(url1), as = "text"), flatten = TRUE)
     }
     message("Done.\n")
-    # remove empty results, in case of mismatch between info and reality
-    # (problem has been observed)
+
     if (length(obs_list[[loopval]]) == 0) {
       obs_list[[i]] <- NULL
     }

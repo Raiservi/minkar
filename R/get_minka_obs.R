@@ -1,5 +1,4 @@
-#' Download iNaturalist data
-#'
+#' Download Minka data
 #' @description Primary function to retrieve observations from Minka, allows users to search
 #' for data, or just filter results by a subset of what is offered by the API.
 #' @param query Query string for a general search.
@@ -47,10 +46,10 @@
 #'   get_minka_obs(taxon_name = "Molusca")
 #'
 #'   ## Get metadata (the number of results found on the server)
-#'   out <- get_inat_obs(query = "Boops boops", meta = TRUE)
+#'   out <- get_minka_obs(query = "Boops boops", meta = TRUE)
 #'   out$meta
 #' }
-#' @import httr htmltools jsonlite plyr
+#' @import httr htmltools jsonlite dplyr
 #' @export
 
 get_minka_obs <- function(query = NULL, taxon_name = NULL, taxon_id = NULL,

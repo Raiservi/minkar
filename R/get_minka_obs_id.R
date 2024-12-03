@@ -1,7 +1,7 @@
 #' Get information on a specific observation
 #'
 #' @export
-#' @import httr plyr jsonlite
+#' @import httr dplyr jsonlite
 #' @param id a single id for a Minka observation record
 #' @return a list with full details on a given record
 #' @examples \dontrun{
@@ -16,7 +16,7 @@
 
   # Check access to Minka
 
-  if (httr::http_error(base_url)) { # Si l error es 400 o superior
+  if (httr::http_error(base_url)) {
                                     message("Minka API is unavailable.")
                                     return(invisible(NULL))
                                   }
