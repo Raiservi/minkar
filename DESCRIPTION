@@ -14,7 +14,9 @@ Imports:
     httr,
     jsonlite,
     dplyr,
-    leaflet
+    leaflet,
+    sf,
+    Spatial
 Suggests: 
     knitr,
     rmarkdown

@@ -49,7 +49,7 @@
 #'   out <- get_minka_obs(query = "Boops boops", meta = TRUE)
 #'   out$meta
 #' }
-#' @import httr htmltools jsonlite dplyr
+#' @import httr jsonlite dplyr sf Spatial
 #' @export
 
 get_minka_obs <- function(query = NULL, taxon_name = NULL, taxon_id = NULL,
@@ -233,7 +233,7 @@ get_minka_obs <- function(query = NULL, taxon_name = NULL, taxon_id = NULL,
 }
 
 minka_handle <- function(x){
-  res <- content(x, as = "text")
+  res <- httr::content(x, as = "text")
   if(!x$headers$`content-type` == 'text/csv; charset=utf-8' || x$status_code > 202 || nchar(res) == 0 ){
     if(!x$headers$`content-type` == 'text/csv; charset=utf-8'){
       warning("Content type incorrect, should be 'text/csv; charset=utf-8'")

@@ -156,21 +156,34 @@ bounds_forum <- c(41.407281, 2.224977, 41.409892, 2.228652 )
 
 diplodus_forum <- get_minka_obs(query = "Diplodus sargus", bounds = bounds_forum, year = 2024, month = 5, maxresults = 7)
 
-diplodus_forum[1,1:6]
+diplodus_forum[1:3,1:6]
 ```
 
-    #>   scientific_name                  datetime description place_guess latitude
-    #> 1 Diplodus sargus 2024-05-18 11:40:00 +0200          NA       Forum 41.40921
-    #>   longitude
-    #> 1  2.227122
+    #>   scientific_name                  datetime description
+    #> 1 Diplodus sargus 2024-05-18 11:40:00 +0200          NA
+    #> 2 Diplodus sargus 2024-05-18 10:11:00 +0200          NA
+    #> 3 Diplodus sargus 2024-05-24 10:23:00 +0200          NA
+    #>                               place_guess latitude longitude
+    #> 1                                   Forum 41.40921  2.227122
+    #> 2                                   Forum 41.40921  2.227122
+    #> 3 El Besòs i el Maresme, Barcelona, Spain 41.40882  2.227477
 
 \#The representation using leaflet
 
-\# leaflet() %\>% \# addTiles() %\>% \# setView(lng = 41.408492 , lat =
+``` r
+leaflet::leaflet() %>%
+  addTiles() %>%
+  setView(lng = -3.7, lat = 40.4, zoom = 5)
+```
+
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-099690d15201754179dd" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-099690d15201754179dd">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]}],"setView":[[40.4,-3.7],5,[]]},"evals":[],"jsHooks":[]}</script>
+
+leaflet() %\>% addTiles() %\>% \# setView(lng = 41.408492 , lat =
 2.226725 , zoom = 15) \# %\>% \#addRectangles(lng1 = 41.407281, lat1 =
 2.224977, \#lng2 = 41.409892, lat2 = 2.228652) \#%\>% \#addMarkers(lng =
-as.double(diplodus_forum$longitude), lat = as.double(diplodus_forum$latitude)
-,group = “Markers”)
+as.double(diplodus_forum \#longitude), lat =
+as.double(diplodus_forum\$latitude) ,group = “Markers”)
 
 ### Other functions
 
@@ -265,13 +278,25 @@ user_obs <- get_minka_obs_user('ramonservitje')
 ``` r
 #it is possible to view the images with the links in Minka
 
-#url <- user_obs$image_url[412]
+url <- user_obs$image_url[412]
 
+url
+```
+
+    #> [1] "https://minka-sdg.org/attachments/local_photos/files/135650/medium.jpeg"
+
+``` r
 # Read the image
-#image <- image_read(url)
 
+image_url <- image_read(url)
 
+#image <- paste('<p style="text-align:center"><img src="',image_url,'"></p>')
+
+#image
 
 # Show the image
-#print(image, info = 'Observation of user rramonservitje')
+
+print(image_url, info = 'Observation of user rramonservitje')
 ```
+
+<img src="README_files/figure-gfm/search8-1.png" width="500" />
