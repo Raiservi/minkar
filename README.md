@@ -1,6 +1,14 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/Raiservi/minkar/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Raiservi/minkar/actions/workflows/R-CMD-check.yaml)
+<!-- badges: start --> <!-- badges: start --> [![Codecov test
+coverage](https://codecov.io/gh/Raiservi/minkar/graph/badge.svg)](https://app.codecov.io/gh/Raiservi/minkar)
+<!-- badges: end --> <!-- badges: end -->
+
+<!-- badges: end -->
+
 # rminka <a href="https://ggplot2.tidyverse.org"><img src="man/figures/minka1.png" align="right" height="138" alt="ggplot2 website" /></a>
 
 ## About
@@ -85,7 +93,7 @@ sard_max_results[,1:6]
 
 To return only records of a specific species or taxonomic group, use the
 `taxon_name` argument. For example, to return observations of anything
-from the family, and restricting the search to the year 2015:
+from the family Sparidae, and restricting the search to the year 2022:
 
 ``` r
 #Geting al the Sparidae observations for the year 2022
@@ -171,19 +179,26 @@ diplodus_forum[1:3,1:6]
 \#The representation using leaflet
 
 ``` r
-leaflet::leaflet() %>%
-  addTiles() %>%
-  setView(lng = -3.7, lat = 40.4, zoom = 5)
+library(leaflet)
+
+# create map widget with OpenStreetMap tile
+# added marker at Delhi India
+ map <- leaflet() %>%
+            #addTiles() %>%
+            fitBounds( 41.407281, 2.224977, 41.409892, 2.228652) %>%
+            addRectangles(41.407281, 2.224977, 41.409892, 2.228652) %>%
+            addMarkers( lng = diplodus_forum$longitude,
+                        lat = diplodus_forum$latitude , 
+                        group = "Markers")
+
+
+# print map widget
+
+map
 ```
 
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-099690d15201754179dd" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-099690d15201754179dd">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]}],"setView":[[40.4,-3.7],5,[]]},"evals":[],"jsHooks":[]}</script>
-
-leaflet() %\>% addTiles() %\>% \# setView(lng = 41.408492 , lat =
-2.226725 , zoom = 15) \# %\>% \#addRectangles(lng1 = 41.407281, lat1 =
-2.224977, \#lng2 = 41.409892, lat2 = 2.228652) \#%\>% \#addMarkers(lng =
-as.double(diplodus_forum \#longitude), lat =
-as.double(diplodus_forum\$latitude) ,group = “Markers”)
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-629f5251881c92a4b0e2" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-629f5251881c92a4b0e2">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"fitBounds":[2.224977,41.407281,2.228652,41.409892,[]],"calls":[{"method":"addRectangles","args":[2.224977,41.407281,2.228652,41.409892,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addMarkers","args":[[41.4092118676,41.4092118676,41.4088239352,41.4088239352,41.4088239352,41.4087320964,41.4094668764],[2.2271221464,2.2271221464,2.2274765389,2.2274765389,2.2274765389,2.2262992385,2.2277573345],null,null,"Markers",{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[2.224977,41.4094668764],"lng":[2.2262992385,41.409892]}},"evals":[],"jsHooks":[]}</script>
 
 ### Other functions
 
@@ -253,8 +268,17 @@ ident
     #> [1] 80229
 
 ``` r
-#get_minka_obs_id(ident)[1:4,1:5]
+get_minka_obs_id(ident)[10:8]
 ```
+
+    #> $taxon_id
+    #> [1] 34798
+    #> 
+    #> $user_id
+    #> [1] 192
+    #> 
+    #> $species_guess
+    #> [1] "diplodus vulgaris"
 
 #### Get all observations by user
 
@@ -296,7 +320,14 @@ image_url <- image_read(url)
 
 # Show the image
 
-print(image_url, info = 'Observation of user rramonservitje')
+print(image_url, info = 'Observation of user ramonservitje')
 ```
 
-<img src="README_files/figure-gfm/search8-1.png" width="500" />
+<div class="figure">
+
+<img src="README_files/figure-gfm/search8-1.png" alt="Minka user´s picture" width="500" />
+<p class="caption">
+Minka user´s picture
+</p>
+
+</div>

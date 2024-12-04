@@ -5,6 +5,17 @@ always_allow_html: true
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+  <!-- badges: start -->
+  [![R-CMD-check](https://github.com/Raiservi/minkar/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Raiservi/minkar/actions/workflows/R-CMD-check.yaml)
+    <!-- badges: start -->
+ <!-- badges: start -->
+  [![Codecov test coverage](https://codecov.io/gh/Raiservi/minkar/graph/badge.svg)](https://app.codecov.io/gh/Raiservi/minkar)
+  <!-- badges: end -->
+  <!-- badges: end -->
+  
+  
+  <!-- badges: end -->
+
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   echo = TRUE,
@@ -22,6 +33,7 @@ library(leaflet)
 library(magick)
 library(magrittr)
 library(sf)
+library(tidyverse)
 ```
 
 # rminka <a href="https://ggplot2.tidyverse.org"><img src="man/figures/minka1.png" align="right" height="138" alt="ggplot2 website" /></a>
@@ -76,7 +88,7 @@ sard_max_results[,1:6]
 
 #### Taxon search
 
-To return only records of a specific species or taxonomic group, use the `taxon_name` argument. For example, to return observations of anything from the  family, and restricting the search to the year 2015:
+To return only records of a specific species or taxonomic group, use the `taxon_name` argument. For example, to return observations of anything from the  family Sparidae, and restricting the search to the year 2022:
 
 
 ```{r search2, include = TRUE , echo=TRUE}
@@ -118,7 +130,7 @@ sard_banc[1:count_sard,1:2]
 You can also search within a bounding box by giving a simple set of coordinates.
 The set of coordinates are defined by c( min Long, min Lat, max Long, max Lat)
  
-```{r search4, include = TRUE , echo=TRUE, fig.cap = "Map of Salpa salpa observations"}
+```{r search4, include = TRUE , echo=TRUE}
 ## Search by area Piscines Forum
 
 bounds_forum <- c(41.407281, 2.224977, 41.409892, 2.228652 )
@@ -126,26 +138,30 @@ bounds_forum <- c(41.407281, 2.224977, 41.409892, 2.228652 )
 diplodus_forum <- get_minka_obs(query = "Diplodus sargus", bounds = bounds_forum, year = 2024, month = 5, maxresults = 7)
 
 diplodus_forum[1:3,1:6]
+
+
 ```   
 #The representation using leaflet
 
-```{r search9, include = TRUE , echo=TRUE}
+```{r search10, echo=TRUE, include=TRUE}
+library(leaflet)
 
-leaflet::leaflet() %>%
-  addTiles() %>%
-  setView(lng = -3.7, lat = 40.4, zoom = 5)
+# create map widget with OpenStreetMap tile
+# added marker at Delhi India
+ map <- leaflet() %>%
+            #addTiles() %>%
+            fitBounds( 41.407281, 2.224977, 41.409892, 2.228652) %>%
+            addRectangles(41.407281, 2.224977, 41.409892, 2.228652) %>%
+            addMarkers( lng = diplodus_forum$longitude,
+                        lat = diplodus_forum$latitude , 
+                        group = "Markers")
+
+
+# print map widget
+
+map
 ```  
 
-
-
-  leaflet() %>%
-  addTiles() %>%
-  #        setView(lng = 41.408492 , lat = 2.226725 , zoom = 15) # %>%
-          #addRectangles(lng1 = 41.407281, lat1 = 2.224977,
-          #lng2 = 41.409892, lat2 = 2.228652) #%>%
-          #addMarkers(lng = as.double(diplodus_forum 
-          #longitude), lat = as.double(diplodus_forum$latitude) ,group = "Markers")
-    
 
 ### Other functions
 
@@ -181,7 +197,8 @@ ident <- sard_banc$id[1]
 
 ident
 
-#get_minka_obs_id(ident)[1:4,1:5]
+get_minka_obs_id(ident)[10:8]
+
 ```
 
 
@@ -190,7 +207,7 @@ ident
 If you just want all the observations by a user you can download all their observations by user ID. A word of warning though, this can be quite large (easily into the 1000's).
 
 
-```{r search8, include = TRUE , echo=TRUE, imag.caption= 'User Image'}
+```{r search8, include = TRUE , echo=TRUE, fig.cap = "Minka user´s picture"}
 
 user_obs <- get_minka_obs_user('ramonservitje')
 
@@ -212,5 +229,5 @@ image_url <- image_read(url)
 
 # Show the image
 
-print(image_url, info = 'Observation of user rramonservitje')
+print(image_url, info = 'Observation of user ramonservitje')
 ```
